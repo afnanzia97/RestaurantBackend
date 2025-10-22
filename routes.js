@@ -6,5 +6,7 @@ router.post('/order', async(req, res) => {
     try {
         const { ID, customerID, items } = req.body;
 
+    } catch {
+
     }
 });
