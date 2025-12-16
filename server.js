@@ -5,7 +5,7 @@ const routes = require('./routes');
 
 // connecting to MongoDB
 
-mongoose.connect('mongodb://localhost27017/Restaurant').then(() => {
+mongoose.connect('mongodb://localhost:27017/Restaurant').then(() => {
     console.log('connected to MongoDB');
 }).catch(err => {
     console.error('Error connecting to MongoDB:', err);
@@ -27,4 +27,6 @@ app.listen(3000, () => {
 
 
 
- 
+
+
+

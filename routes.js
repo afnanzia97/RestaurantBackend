@@ -1,7 +1,8 @@
 const express = require('express');
 const router = express.Router();
 const user = require('./models/Restaurant');
-const Menu = require('./models/Menu');
+const Order = require('./models/Order');
+const Customer = require('./models/Customer');
 
 
 router.post('/Customer', async(req, res) => {
@@ -19,43 +20,82 @@ router.post('/Customer', async(req, res) => {
         res.status(500).json({message: 'Internal server error'});
     }
 
-router.get('/Customer', (req, res) => {
-    res.json({ message: 'Welcome to the Restaurant' });
+router.get('/Customer', async (req, res) => {
+  try {
+    const Cusomter = await Customer.findOne({ ID: req.body.ID });
+    res.json(user);
+  } catch (err) {
+    res.status(404).json({ error: 'Customer not found' });
+  }
 });
 
-router.put('/Customer', (req, res) => {
-    res.json({ message: 'Customer has finished his order' });
+router.put('/Customer', async (req, res) => {
+  try {
+    const updated = await Customer.findOneAndUpdate(
+      { ID: req.body.ID },
+      req.body,
+      { new: true }
+    );
+    res.json(updated);
+  } catch (err) {
+    res.status(400).json({ error: err.message });
+  }
 });
 
-router.delete('/Customer', (req, res) => {
-    res.json({ message: "Delete this customer" });
+router.delete('/Customer', async (req, res) => {
+  try {
+    await Customer.findOneAndDelete({ ID: req.body.ID });
+    res.json({ message: 'Deleted' });
+  } catch (err) {
+    res.status(400).json({ error: err.message });
+  }
 });
 
-router.post('/Menu', async(req, res) => {
+router.post('/Order', async(req, res) => {
     try {
         const {orderNumber, meal, dessert, drinks, size, dinein_OR_takeaway} = req.body;
 
 
        
-        const newMenu = new Menu({orderNumber, meal, dessert, drinks, size, dinein_OR_takeaway});
-        await newMenu.save();
-        res.status(201).json({ message: 'select from Menu', menu: newMenu});
+        const newOrder = new Order({orderNumber, meal, dessert, drinks, size, dinein_OR_takeaway});
+        await newOrder.save();
+        res.status(201).json({ message: 'select from Order', Order: newOrder});
 
     } catch(error) {
         console.error('Error', error);
         res.status(500).json({message: 'Internal server error'});
     }
 
-router.get('/Menu', (req, res) => {
-    res.json({ message: 'an oder has been made' });
+router.get('/Order', async (req, res) => {
+  try {
+    const Order = await Order.findOne({ orderNumber: req.body.orderNumber });
+    res.json(user);
+  } catch (err) {
+    res.status(404).json({ error: 'Order not found' });
+  }
 });
 
-router.put('/Menu', (req, res) => {
-    res.json({ message: 'Would you like anything else?' });
+router.put('/Order', async (req, res) => {
+  try {
+    const updated = await Order.findOneAndUpdate(
+      { orderNumber: req.body.orderNumber },
+      req.body,
+      { new: true }
+    );
+    res.json(updated);
+  } catch (err) {
+    res.status(400).json({ error: err.message });
+  }
 });
 
-router.delete('/Menu', (req, res) => {
-    res.json({ message: "Delete this customer's order" });
+
+router.delete('/Order', async (req, res) => {
+  try {
+    await Order.findOneAndDelete({ orderNumber: req.body.orderNumber });
+    res.json({ message: 'Deleted' });
+  } catch (err) {
+    res.status(400).json({ error: err.message });
+  }
 });
 
 })

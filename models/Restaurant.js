@@ -1,6 +1,4 @@
 const mongoose = require('mongoose');
-const { stringify } = require('querystring');
-
 
 const restaurantSchema = new mongoose.Schema({
 
@@ -10,7 +8,7 @@ const restaurantSchema = new mongoose.Schema({
         unique: true
     },
 
-    Menu: [{
+    OrderID: [{
         type: Number,
         required: true
     }]
@@ -18,5 +16,5 @@ const restaurantSchema = new mongoose.Schema({
 
 // look into schema then route
 // make schema for customer and items
-const Restaurant = mongoose.model('Restaurant', RestaurantSchema)
+const Restaurant = mongoose.model('Restaurant', restaurantSchema)
 module.exports = Restaurant;

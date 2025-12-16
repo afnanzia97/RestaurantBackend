@@ -1,9 +1,11 @@
-const menuSchema = new mongoose.Schema({
+const mongoose = require('mongoose');
+
+const orderSchema = new mongoose.Schema({
 
     orderNumber : {
         type : Number,
-        required : True,
-        unique : True 
+        required : true,
+        unique : true 
     },                                          
 
     meal : {
@@ -36,5 +38,5 @@ const menuSchema = new mongoose.Schema({
     }]
 });
 
-const Menu = mongoose.model("Menu", menuSchema);
-module.exports = Menu;
+const Order = mongoose.model("Menu", orderSchema);
+module.exports = Order;

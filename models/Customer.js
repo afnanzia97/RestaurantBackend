@@ -1,9 +1,11 @@
+const mongoose = require('mongoose');
+
 const customerSchema = new mongoose.Schema({
               
         ID : {
             type : Number,
-            required : True,
-            unique : True,
+            required : true,
+            unique : true,
         },
 
         age :  {
