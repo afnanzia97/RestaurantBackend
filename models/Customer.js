@@ -19,7 +19,7 @@ const customerSchema = new mongoose.Schema({
         },
 
         income :  {
-            type : Number,
+            type : String,
             enum : ['low', 'middle', 'high']
         }
 });
